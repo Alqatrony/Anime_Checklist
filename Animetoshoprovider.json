@@ -1,89 +1,49 @@
 {
-  "animetosho": {
+  {
     "name": "AnimeTosho",
     "enabled": true,
     "languages": [
-      "en"
+        "en",
+        "ja"
     ],
     "base_url": "https://animetosho.org",
-    "response_type": "text",
+    "fallback_urls": [],
+    "response_type": "html",
+    "time_to_wait_between_each_request_ms": 500,
+    "time_to_wait_on_too_many_request_ms": 2000,
+    "trust_results": true,
+    "token": {
+        "query": "",
+        "token_validity_time_ms": 0,
+        "token_format": {}
+    },
     "movie": {
-      "query": "/search?q={query}",
-      "keywords": "{title} {year}"
+        "query": "/search?q={query}&qx=1",
+        "keywords": "{query}"
     },
     "episode": {
-      "query": "/search?q={query}",
-      "keywords": [
-        "{title} {absoluteNumber}",
-        "{title} {episode}"
-      ]
+        "query": "/search?q={query}+\"S{season}E{episode}\"&qx=1",
+        "keywords": "{title} {episodeCode}"
     },
     "season": {
-      "query": "/search?q={query}",
-      "keywords": [
-        "{title} {seasonCode}",
-        "{title} season"
-      ]
+        "query": "/search?q={query}+\"Season {season}\"&qx=1",
+        "keywords": [
+            "{title} {seasonCode}",
+            "{title} season"
+        ]
     },
-    "anime": {
-      "query": "/search?q={query}",
-      "keywords": [
-        "{title} {absoluteNumber}",
-        "{title} {episode}"
-      ]
-    },
-    "html_parser": {
-      "row": "doc.querySelectorAll('.home_list_entry')",
-      "title": "row.querySelector('.link a').textContent",
-      "peers": "parseInt(row.querySelector('span:nth-child(5)').textContent.match(/\\d+/g)[1])",
-      "seeds": "parseInt(row.querySelector('span:nth-child(5)').textContent.match(/\\d+/g)[0])",
-      "size": "row.querySelector('.size').textContent",
-      "url": "row.querySelector('.links a:nth-child(4)').getAttribute('href')"
+    "json_format": {
+        "results": "html_parsing",
+        "url": "magnet",
+        "title": "name",
+        "seeds": "N/A",
+        "peers": "N/A",
+        "size": "size"
     },
     "title_replacement": {
-      ".": "",
-      ":": "",
-      "'": "",
-      "&": "",
-      "\"": "",
-      "*": ""
-    },
-    "source_is_in_sub_page": false,
-    "original_package": "SynclerScrapers - OpenScrapers",
-    "additional_features": {
-      "cloud_files_inspection": {
-        "enabled": true,
-        "providers": [
-          "real_debrid",
-          "premiumize"
-        ],
-        "terminate_on_cloud": true
-      },
-      "filtering_options": {
-        "max_resolution": "1080p",
-        "file_size_limits": {
-          "movie": {
-            "min_GB": 0.5,
-            "max_GB": 10
-          },
-          "episode": {
-            "min_GB": 0.2,
-            "max_GB": 5
-          }
-        }
-      },
-      "sorting_preferences": {
-        "prioritize_dual_audio": true,
-        "prioritize_multi_subs": true,
-        "prioritize_batches": true,
-        "sort_by": "resolution",
-        "debrid_priority": [
-          "real_debrid",
-          "premiumize",
-          "all_debrid",
-          "debrid_link"
-        ]
-      }
+        "'s": "s",
+        "\"": ""
     }
-  }
+}
+
 }
