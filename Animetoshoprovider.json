@@ -1,6 +1,6 @@
 {
   "animetosho": {
-    "name": "Anime Tosho",
+    "name": "AnimeTosho",
     "enabled": true,
     "languages": [
       "en"
@@ -9,32 +9,31 @@
     "fallback_urls": [],
     "response_type": "text",
     "movie": {
-      "query": "/search?q={query}&qx=1",
-      "keywords": "{title}"
+      "query": "/search?q={query}&aids={anidb}&qf=0",
+      "keywords": "{title} {year}"
     },
     "episode": {
-      "query": "/search?q={query} \"- {episode}\"|\"S{season}E{episode}\"&qx=1",
-      "keywords": "{title} {absoluteNumber}"
+      "query": "/search?q={query}&aids={anidb}&qf=0",
+      "keywords": "{title} {absoluteNumber}|\"S{season}E{absoluteNumber}\""
     },
     "season": {
-      "query": "/search?q={query} \"Season {season}\"&qx=1",
+      "query": "/search?q={query}&aids={anidb}&qf=0",
       "keywords": [
         "{title} {seasonCode}",
         "{title} season"
       ]
     },
     "anime": {
-      "query": "/search?q={query}&qx=1",
+      "query": "/search?q={query}&aids={anidb}&qf=1",
       "keywords": "{title} {absoluteNumber}"
     },
     "separator": "+",
     "html_parser": {
-      "row": "soup.find('div', id='content').find_all('div', class_='home_list_entry')",
-      "title": "row.find('div', class_='link').a.text",
-      "peers": "N/A",
-      "seeds": "N/A",
-      "size": "row.find('div', class_='size').text",
-      "url": "row.find('a', {'href': re.compile('(magnet:)+[^']*')}).get('href')"
+      "row": "doc.querySelectorAll('div.home_list_entry')",
+      "title": "row.querySelector('div.link a').textContent",
+      "magnet": "row.querySelector('a[href^=\"magnet:\"]').getAttribute('href')",
+      "size": "row.querySelector('div.size').textContent",
+      "torrent": "row.querySelector('a.dllink').getAttribute('href')"
     },
     "source_is_in_sub_page": false,
     "title_replacement": {
