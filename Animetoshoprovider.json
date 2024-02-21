@@ -1,64 +1,88 @@
 {
-  "sources": {
-    "nyaa": {
-      "name": "Nyaa",
-      "enabled": true,
-      "base_url": "https://nyaa.si",
-      "query_patterns": {
-        "episode": "/?f=0&c=1_2&q={query}",
-        "movie": "/?f=0&c=1_2&q={query}"
-      },
-      "language_preference": ["Sub", "Dub"],
-      "resolution_preference": ["4K", "1080p", "720p", "SD"],
-      "filter_settings": {
-        "max_resolution": "1080p",
-        "exclude_hevc": true
-      }
+  "animetosho": {
+    "name": "AnimeTosho",
+    "enabled": true,
+    "languages": [
+      "en"
+    ],
+    "base_url": "https://animetosho.org",
+    "response_type": "text",
+    "movie": {
+      "query": "/search?q={query}",
+      "keywords": "{title} {year}"
     },
-    "animetosho": {
-      "name": "AnimeTosho",
-      "enabled": true,
-      "base_url": "https://animetosho.org",
-      "query_patterns": {
-        "episode": "/search?q={query}",
-        "movie": "/search?q={query}"
-      },
-      "language_preference": ["Sub", "Dub"],
-      "resolution_preference": ["4K", "1080p", "720p", "SD"],
-      "filter_settings": {
-        "max_resolution": "1080p",
-        "exclude_hevc": true
-      }
+    "episode": {
+      "query": "/search?q={query}",
+      "keywords": [
+        "{title} {absoluteNumber}",
+        "{title} {episode}"
+      ]
     },
-    "gogoanime": {
-      "name": "Gogoanime",
-      "enabled": true,
-      "base_url": "https://gogoanime.ai",
-      "query_patterns": {
-        "episode": "/search.html?keyword={query}",
-        "movie": "/search.html?keyword={query}"
-      },
-      "language_preference": ["Sub", "Dub"],
-      "resolution_preference": ["1080p", "720p", "SD"],
-      "filter_settings": {
-        "max_resolution": "1080p",
-        "exclude_non_dub": false
-      }
-    }
-  },
-  "global_settings": {
-    "language_preference": "Sub",
-    "max_resolution": "1080p",
-    "exclude_hevc": true,
-    "sort_preference": "resolution",
-    "debrid_services": {
-      "real_debrid": {
+    "season": {
+      "query": "/search?q={query}",
+      "keywords": [
+        "{title} {seasonCode}",
+        "{title} season"
+      ]
+    },
+    "anime": {
+      "query": "/search?q={query}",
+      "keywords": [
+        "{title} {absoluteNumber}",
+        "{title} {episode}"
+      ]
+    },
+    "html_parser": {
+      "row": "doc.querySelectorAll('.home_list_entry')",
+      "title": "row.querySelector('.link a').textContent",
+      "peers": "parseInt(row.querySelector('span:nth-child(5)').textContent.match(/\\d+/g)[1])",
+      "seeds": "parseInt(row.querySelector('span:nth-child(5)').textContent.match(/\\d+/g)[0])",
+      "size": "row.querySelector('.size').textContent",
+      "url": "row.querySelector('.links a:nth-child(4)').getAttribute('href')"
+    },
+    "title_replacement": {
+      ".": "",
+      ":": "",
+      "'": "",
+      "&": "",
+      "\"": "",
+      "*": ""
+    },
+    "source_is_in_sub_page": false,
+    "original_package": "SynclerScrapers - OpenScrapers",
+    "additional_features": {
+      "cloud_files_inspection": {
         "enabled": true,
-        "priority": 1
+        "providers": [
+          "real_debrid",
+          "premiumize"
+        ],
+        "terminate_on_cloud": true
       },
-      "premiumize": {
-        "enabled": false,
-        "priority": 2
+      "filtering_options": {
+        "max_resolution": "1080p",
+        "file_size_limits": {
+          "movie": {
+            "min_GB": 0.5,
+            "max_GB": 10
+          },
+          "episode": {
+            "min_GB": 0.2,
+            "max_GB": 5
+          }
+        }
+      },
+      "sorting_preferences": {
+        "prioritize_dual_audio": true,
+        "prioritize_multi_subs": true,
+        "prioritize_batches": true,
+        "sort_by": "resolution",
+        "debrid_priority": [
+          "real_debrid",
+          "premiumize",
+          "all_debrid",
+          "debrid_link"
+        ]
       }
     }
   }
