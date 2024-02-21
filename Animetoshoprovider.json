@@ -1,41 +1,51 @@
 {
-  "animetosho": {
-    "name": "AnimeTosho",
+  "gogoanime": {
+    "name": "Gogoanime (anime)",
     "enabled": true,
     "languages": [
-      "en"
+      "en",
+      "ja"
     ],
-    "base_url": "https://animetosho.org",
-    "fallback_urls": [],
-    "response_type": "text",
-    "movie": {
-      "query": "/search?q={query}&aids={anidb}&qf=0",
-      "keywords": "{title} {year}"
-    },
+    "base_url": "https://gogoanime3.net/",
+    "fallback_urls": [
+      "https://anitaku.to/"
+    ],
+    "response_type": "html",
     "episode": {
-      "query": "/search?q={query}&aids={anidb}&qf=0",
-      "keywords": "{title} {absoluteNumber}|\"S{season}E{absoluteNumber}\""
+      "query": "/{slug}-episode-{episode}",
+      "keywords": "{title} {episode}"
     },
-    "season": {
-      "query": "/search?q={query}&aids={anidb}&qf=0",
-      "keywords": [
-        "{title} {seasonCode}",
-        "{title} season"
-      ]
+    "search": {
+      "query": "/search.html",
+      "keywords": "{title}",
+      "post": true,
+      "params": {
+        "keyword": "{title}",
+        "id": -1
+      }
     },
-    "anime": {
-      "query": "/search?q={query}&aids={anidb}&qf=1",
-      "keywords": "{title} {absoluteNumber}"
+    "ajax_search": {
+      "url": "https://ajax.gogo-load.com/site/loadAjaxSearch",
+      "method": "POST",
+      "params": {
+        "keyword": "{title}",
+        "id": -1,
+        "link_web": "{base_url}"
+      }
     },
     "separator": "+",
     "html_parser": {
-      "row": "doc.querySelectorAll('div.home_list_entry')",
-      "title": "row.querySelector('div.link a').textContent",
-      "magnet": "row.querySelector('a[href^=\"magnet:\"]').getAttribute('href')",
-      "size": "row.querySelector('div.size').textContent",
-      "torrent": "row.querySelector('a.dllink').getAttribute('href')"
+      "episode_list": {
+        "container": "div.anime_muti_link > ul > li",
+        "server": "self.get('class')[0]",
+        "link": "self.a.get('data-video')"
+      },
+      "search_results": {
+        "container": "div.list_search_ajax",
+        "slug": "self.find('a').get('href').split('/')[-1]"
+      }
     },
-    "source_is_in_sub_page": false,
+    "source_is_in_sub_page": true,
     "title_replacement": {
       "'s": "s",
       "\"": ""
