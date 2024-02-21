@@ -4,23 +4,39 @@
     "enabled": true,
     "languages": ["en"],
     "base_url": "https://animetosho.org",
-    "fallback_urls": [],
     "response_type": "text",
+    "movie": {
+      "query": "/search?q={query}",
+      "keywords": "{title} {year}"
+    },
     "episode": {
       "query": "/search?q={query}",
-      "keywords": ["{title} {absoluteNumber}", "{title} {episode}"]
+      "keywords": [
+        "{title} {absoluteNumber}",
+        "{title} {episode}"
+      ]
+    },
+    "season": {
+      "query": "/search?q={query}",
+      "keywords": [
+        "{title} {seasonCode}",
+        "{title} season"
+      ]
     },
     "anime": {
       "query": "/search?q={query}",
-      "keywords": ["{title} {absoluteNumber}", "{title} {episode}"]
+      "keywords": [
+        "{title} {absoluteNumber}",
+        "{title} {episode}"
+      ]
     },
     "html_parser": {
-      "row": "doc.querySelectorAll('.home_list_entry')",
-      "title": "row.querySelector('.link a').textContent",
-      "peers": "row.querySelector('span:nth-child(5)').textContent.match(/\\d+/g)[1]",
-      "seeds": "row.querySelector('span:nth-child(5)').textContent.match(/\\d+/g)[0]",
-      "size": "row.querySelector('.size').textContent",
-      "url": "row.querySelector('.links a:nth-child(4)').getAttribute('href')"
+      "row": "HTML parsing logic here",
+      "title": "Title parsing logic here",
+      "peers": "Peers parsing logic here",
+      "seeds": "Seeds parsing logic here",
+      "size": "Size parsing logic here",
+      "url": "URL parsing logic here"
     },
     "title_replacement": {
       ".": "",
