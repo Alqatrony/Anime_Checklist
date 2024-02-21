@@ -1,0 +1,36 @@
+{
+  "animetosho": {
+    "name": "AnimeTosho",
+    "enabled": true,
+    "languages": ["en"],
+    "base_url": "https://animetosho.org",
+    "fallback_urls": [],
+    "response_type": "text",
+    "episode": {
+      "query": "/search?q={query}",
+      "keywords": ["{title} {absoluteNumber}", "{title} {episode}"]
+    },
+    "anime": {
+      "query": "/search?q={query}",
+      "keywords": ["{title} {absoluteNumber}", "{title} {episode}"]
+    },
+    "html_parser": {
+      "row": "doc.querySelectorAll('.home_list_entry')",
+      "title": "row.querySelector('.link a').textContent",
+      "peers": "row.querySelector('span:nth-child(5)').textContent.match(/\\d+/g)[1]",
+      "seeds": "row.querySelector('span:nth-child(5)').textContent.match(/\\d+/g)[0]",
+      "size": "row.querySelector('.size').textContent",
+      "url": "row.querySelector('.links a:nth-child(4)').getAttribute('href')"
+    },
+    "title_replacement": {
+      ".": "",
+      ":": "",
+      "'": "",
+      "&": "",
+      "\"": "",
+      "*": ""
+    },
+    "source_is_in_sub_page": false,
+    "original_package": "SynclerScrapers - OpenScrapers"
+  }
+}
