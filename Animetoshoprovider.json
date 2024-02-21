@@ -1,46 +1,45 @@
 {
-    "name": "AnimeTosho",
+  "animetosho": {
+    "name": "Anime Tosho",
     "enabled": true,
     "languages": [
-        "en",
-        "ja"
+      "en"
     ],
     "base_url": "https://animetosho.org",
     "fallback_urls": [],
-    "response_type": "html",
-    "time_to_wait_between_each_request_ms": 500,
-    "time_to_wait_on_too_many_request_ms": 2000,
-    "trust_results": true,
-    "token": {
-        "query": "",
-        "token_validity_time_ms": 0,
-        "token_format": {}
-    },
+    "response_type": "text",
     "movie": {
-        "query": "/search?q={query}&qx=1",
-        "keywords": "{query}"
+      "query": "/search?q={query}&qx=1",
+      "keywords": "{title}"
     },
     "episode": {
-        "query": "/search?q={query}+\"S{season}E{episode}\"&qx=1",
-        "keywords": "{title} {episodeCode}"
+      "query": "/search?q={query} \"- {episode}\"|\"S{season}E{episode}\"&qx=1",
+      "keywords": "{title} {absoluteNumber}"
     },
     "season": {
-        "query": "/search?q={query}+\"Season {season}\"&qx=1",
-        "keywords": [
-            "{title} {seasonCode}",
-            "{title} season"
-        ]
+      "query": "/search?q={query} \"Season {season}\"&qx=1",
+      "keywords": [
+        "{title} {seasonCode}",
+        "{title} season"
+      ]
     },
-    "json_format": {
-        "results": "html_parsing",
-        "url": "magnet",
-        "title": "name",
-        "seeds": "N/A",
-        "peers": "N/A",
-        "size": "size"
+    "anime": {
+      "query": "/search?q={query}&qx=1",
+      "keywords": "{title} {absoluteNumber}"
     },
+    "separator": "+",
+    "html_parser": {
+      "row": "soup.find('div', id='content').find_all('div', class_='home_list_entry')",
+      "title": "row.find('div', class_='link').a.text",
+      "peers": "N/A",
+      "seeds": "N/A",
+      "size": "row.find('div', class_='size').text",
+      "url": "row.find('a', {'href': re.compile('(magnet:)+[^']*')}).get('href')"
+    },
+    "source_is_in_sub_page": false,
     "title_replacement": {
-        "'s": "s",
-        "\"": ""
+      "'s": "s",
+      "\"": ""
     }
+  }
 }
