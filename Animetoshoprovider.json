@@ -1,5 +1,4 @@
 {
-  {
     "name": "AnimeTosho",
     "enabled": true,
     "languages": [
@@ -44,6 +43,4 @@
         "'s": "s",
         "\"": ""
     }
-}
-
 }
