@@ -1,0 +1,47 @@
+{
+  "gogoanime": {
+    "name": "GogoAnime",
+    "enabled": true,
+    "languages": [
+      "en"
+    ],
+    "base_url": "https://gogoanime3.net/",
+    "fallback_urls": [
+      "https://anitaku.to/"
+    ],
+    "response_type": "html",
+    "episode": {
+      "query": "/{slug}-episode-{episode}",
+      "keywords": "{title} {episode}"
+    },
+    "search": {
+      "endpoint": "/site/loadAjaxSearch",
+      "method": "POST",
+      "params": {
+        "keyword": "{title}",
+        "id": -1,
+        "link_web": "base_url"
+      },
+      "headers": {
+        "Referer": "base_url"
+      }
+    },
+    "source_is_in_sub_page": true,
+    "html_parser": {
+      "search_results": {
+        "container": "div.list_search_ajax",
+        "title": "a.text",
+        "slug": "a.href"
+      },
+      "episode_sources": {
+        "container": ".anime_muti_link > ul > li",
+        "server": "element.get('class')[0]",
+        "data-video": "element.a.get('data-video')"
+      }
+    },
+    "title_replacement": {
+      "'s": "s",
+      "\"": ""
+    }
+  }
+}
